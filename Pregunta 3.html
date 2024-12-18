@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora</title>
+    <link rel="stylesheet" href="EstiloDePregunta3.css">
+</head>
+<body>
+    <center>
+        <h3>BIENVENIDO A MI CALCULADORA. :)</h3>
+    </center>
+    <div class="calculador">
+        <div class="display" id="display"></div>
+        <table>
+            <tr>
+                <td><button onclick="appendNumero('7')">7</button></td>
+                <td><button onclick="appendNumero('8')">8</button></td>
+                <td><button onclick="appendNumero('9')">9</button></td>
+                <td><button onclick="appendOperador('/')">/</button></td>
+            </tr>
+            <tr>
+                <td><button onclick="appendNumero('4')">4</button></td>
+                <td><button onclick="appendNumero('5')">5</button></td>
+                <td><button onclick="appendNumero('6')">6</button></td>
+                <td><button onclick="appendOperador('*')">*</button></td>
+            </tr>
+            <tr>
+                <td><button onclick="appendNumero('1')">1</button></td>
+                <td><button onclick="appendNumero('2')">2</button></td>
+                <td><button onclick="appendNumero('3')">3</button></td>
+                <td><button onclick="appendOperador('-')">-</button></td>
+            </tr>
+            <tr>
+                <td><button onclick="appendNumero('0')">0</button></td>
+                <td><button onclick="appendNumero('.')">.</button></td>
+                <td><button onclick="calcular()">=</button></td>
+                <td><button onclick="appendOperador('+')">+</button></td>
+            </tr>
+            <tr>
+                <td><button onclick="appendOperador('!')">n!</button></td>
+                <td><button onclick="appendOperador('^')">^</button></td>
+                <td colspan="2"><button onclick="clearDisplay()">C</button></td>
+            </tr>
+        </table>
+    </div>
+
+    <script>
+        let display = document.getElementById('display'); // Corregido: getElementoById a getElementById
+        let currentInput = '';
+
+        function appendNumero(numero) {
+            currentInput += numero;
+            display.innerText = currentInput;
+        }
+
+        function appendOperador(operador) { // Corregido: operdtor a operador
+            currentInput += ' ' + operador + ' ';
+            display.innerText = currentInput;
+        }
+
+        function calcular() {
+            try {
+                currentInput = currentInput.replace(/\^/g, "**");
+                currentInput = currentInput.replace(/(\d+)\s*\!/g, factorial);
+                const result = eval(currentInput);
+                display.innerText = result;
+                currentInput = result.toString();
+            } catch (error) {
+                display.innerText = "ERROR";
+                currentInput = "";
+            }
+        }
+
+        function factorial(n) {
+            n = parseInt(n);
+            if (n < 0) return "ERROR";
+            if (n === 0 || n === 1) return 1;
+            let result = 1;
+            for (let i = 2; i <= n; i++) {
+                result *= i;
+            }
+            return result;
+        }
+
+        function clearDisplay() {
+            currentInput = "";
+            display.innerText = "";
+        }
+
+        document.addEventListener("keydown", function(event) { // Corregido: addEventoLista a addEventListener
+            const k = event.key; // Corregido: event.k a event.key
+            if (!isNaN(k) || k === ".") {
+                appendNumero(k);
+            }
+            if (k === "+" || k === "-" || k === "*" || k === "/" || k === "^") {
+                appendOperador(k);
+            }
+            if (k === "Enter") { // Corregido: "ENTER" a "Enter"
+                calcular();
+            }
+            if (k === "Escape") { // Corregido: "ESCAPE" a "Escape"
+                clearDisplay();
+            }
+        });
+    </script>
+</body>
+</html>

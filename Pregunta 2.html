@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Números Primos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        input, button {
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Generador de Números Primos</h1>
+    <label for="n">Introduce un número entero n:</label>
+    <input type="number" id="n" min="1" required>
+    <button onclick="generarPrimos()">Generar Primos</button>
+    <h2 id="resultado"></h2>
+
+    <script>
+        function esPrimo(num) {
+            if (num <= 1) return false;
+            for (let i = 2; i <= Math.sqrt(num); i++) {
+                if (num % i === 0) return false;
+            }
+            return true;
+        }
+
+        function generarPrimos() {
+            const n = parseInt(document.getElementById('n').value);
+            let primos = [];
+            let contador = 0;
+            let numero = 2; // Comenzamos desde el primer número primo
+
+            while (contador < n) {
+                if (esPrimo(numero)) {
+                    primos.push(`Primo (${contador + 1}) = ${numero}`);
+                    contador++;
+                }
+                numero++;
+            }
+
+            document.getElementById('resultado').innerText = primos.join('\n');
+        }
+    </script>
+</body>
+</html>

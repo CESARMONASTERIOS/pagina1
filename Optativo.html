@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Factorial Table</title>
+        <link rel="stylesheet" href="EstiloDeOptativo.css">
+    </head>
+    <body>
+        <h1>Factorial Table</h1>
+        <table>
+            <tr>
+                <th>1!</th>
+                <th>2!</th>
+                <th>3!</th>
+                <th>4!</th>
+                <th>N! = 5!</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>2</td>
+                <td>6</td>
+                <td id="cell4"></td>
+                <td>120</td>
+            </tr>
+        </table>
+    <script>
+        document.getElementById("cell4").innerHTML = factorial(4);
+        function factorial(n) {
+            if (n == 0) {
+                return 1;
+            } else {
+            return n * factorial(n - 1);
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suma de Factoriales</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        input, button {
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Suma de la serie 0! + 2! + 4! + ... + (2n-2)!</h1>
+    <label for="n">Introduce un número N:</label>
+    <input type="number" id="n" min="1" required>
+    <button onclick="calcularSuma()">Calcular Suma</button>
+    <h2 id="resultado"></h2>
+
+    <script>
+        function factorial(num) {
+            if (num === 0 || num === 1) {
+                return 1;
+            }
+            let resultado = 1;
+            for (let i = 2; i <= num; i++) {
+                resultado *= i;
+            }
+            return resultado;
+        }
+
+        function calcularSuma() {
+            const n = parseInt(document.getElementById('n').value);
+            let suma = 0;
+
+            for (let i = 0; i < n; i++) {
+                const factorialValue = factorial(2 * i);
+                suma += factorialValue;
+            }
+
+            document.getElementById('resultado').innerText = `La suma es: ${suma}`;
+        }
+    </script>
+</body>
+</html>
